@@ -23,6 +23,15 @@ void swap(int *a, int *b)
 unsigned int partition(int *array, size_t size)
 {
 	unsigned int index = 0, swap_index = 0;
+	static size_t array_size, set_vars = 1;
+	static int *array_start;
+
+	if (set_vars)
+	{
+		array_start = array;
+		array_size = size;
+		set_vars = 0;
+	}
 
 	while (index < size)
 	{
@@ -31,7 +40,7 @@ unsigned int partition(int *array, size_t size)
 			if (index != swap_index)
 			{
 				swap(&(array[index]), &(array[swap_index]));
-				print_array(array, size);
+				print_array(array_start, array_size);
 			}
 			swap_index++;
 		}
@@ -40,7 +49,7 @@ unsigned int partition(int *array, size_t size)
 	if (array[index - 1] < array[swap_index])
 	{
 		swap(&(array[index - 1]), &(array[swap_index]));
-		print_array(array, size);
+		print_array(array_start, array_size);
 	}
 	return (swap_index);
 }
